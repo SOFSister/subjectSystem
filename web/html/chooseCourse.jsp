@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: 87428
   Date: 2021/12/15
-  Time: 10:26
+  Time: 13:53
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,30 +13,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>已修课程</title>
+    <title>
+        选择课程
+    </title>
 
 
     <!-- Plugin styles -->
-    <link rel="stylesheet" href="vendors/bundle.css" type="text/css">
+    <link rel="stylesheet" href="../vendors/bundle.css" type="text/css">
+
+    <!-- Fullcalendar -->
+    <link rel="stylesheet" href="../vendors/fullcalendar/fullcalendar.min.css" type="text/css">
+
+    <!-- Clockpicker -->
+    <link rel="stylesheet" href="../vendors/clockpicker/bootstrap-clockpicker.min.css" type="text/css">
 
     <!-- Datepicker -->
-    <link rel="stylesheet" href="vendors/datepicker/daterangepicker.css">
-
-    <!-- Slick -->
-    <link rel="stylesheet" href="vendors/slick/slick.css">
-    <link rel="stylesheet" href="vendors/slick/slick-theme.css">
-
-    <!-- Vmap -->
-    <link rel="stylesheet" href="vendors/vmap/jqvmap.min.css">
+    <link rel="stylesheet" href="../vendors/datepicker/daterangepicker.css" type="text/css">
 
     <!-- App styles -->
-    <link rel="stylesheet" href="css/app.min.css" type="text/css">
-
-    <!-- DataTable -->
-    <link rel="stylesheet" href="vendors/dataTable/dataTables.min.css" type="text/css">
-
-    <!-- Prism -->
-    <link rel="stylesheet" href="vendors/prism/prism.css" type="text/css">
+    <link rel="stylesheet" href="../css/app.min.css" type="text/css">
 </head>
 
 <body>
@@ -63,10 +58,10 @@
 
     <!-- begin::logo -->
     <div id="logo">
-        <a href="index.jsp">
-            <img class="logo" src="image/logo.png" alt="logo">
-            <img class="logo-sm" src="image/logo.png" alt="small logo">
-            <img class="logo-dark" src="image/logo.png" alt="dark logo">
+        <a href="../index.jsp">
+            <img class="logo" src="../image/logo.png" alt="logo">
+            <img class="logo-sm" src="../image/logo.png" alt="small logo">
+            <img class="logo-dark" src="../image/logo.png" alt="dark logo">
         </a>
     </div>
     <!-- end::logo -->
@@ -74,19 +69,19 @@
     <!-- begin::navigation header -->
     <header class="navigation-header">
         <figure class="avatar avatar-state-success">
-            <img src="image/user/logo_03.png" class="rounded-circle" alt="image">
+            <img src="../image/user/logo_03.png" class="rounded-circle" alt="image">
         </figure>
         <div>
             <h5>未登录</h5>
             <p class="text-muted">学生端</p>
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="html/register.jsp" class="btn nav-link bg-info-bright" title="注册" data-toggle="tooltip">
+                    <a href="register.jsp" class="btn nav-link bg-info-bright" title="注册" data-toggle="tooltip">
                         <i data-feather="user"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="html/login.jsp" class="btn nav-link bg-success-bright" title="登录" data-toggle="tooltip">
+                    <a href="login.jsp" class="btn nav-link bg-success-bright" title="登录" data-toggle="tooltip">
                         <i data-feather="log-in"></i>
                     </a>
                 </li>
@@ -100,26 +95,26 @@
         <ul>
             <li class="navigation-divider">Main</li>
             <li>
-                <a href="index.jsp">
+                <a href="../index.jsp">
                     <i class="nav-link-icon" data-feather="bar-chart-2"></i>
                     <span>已修课程</span>
                 </a>
             </li>
             <li>
-                <a href="html/chooseCourse.jsp">
+                <a href="chooseCourse.jsp">
                     <i class="nav-link-icon" data-feather="check-circle"></i>
                     <span>选择课程</span>
                 </a>
             </li>
             <li>
-                <a href="html/selectedCourse.jsp">
+                <a href="selectedCourse.jsp">
                     <i class="nav-link-icon" data-feather="calendar"></i>
                     <span>已选课程</span>
                 </a>
             </li>
             <li class="navigation-divider">Extras</li>
             <li>
-                <a href="html/personalInformation.jsp">
+                <a href="personalInformation.jsp">
                     <i class="nav-link-icon" data-feather="user"></i>
                     <span>个人信息</span>
                 </a>
@@ -150,10 +145,10 @@
 
             <!-- begin::header-logo -->
             <li class="nav-item" id="header-logo">
-                <a href="index.jsp">
-                    <img class="logo" src="image/logo.png" alt="logo">
-                    <img class="logo-sm" src="image/logo.png" alt="small logo">
-                    <img class="logo-dark" src="image/logo.png" alt="dark logo">
+                <a href="../index.jsp">
+                    <img class="logo" src="../image/logo.png" alt="logo">
+                    <img class="logo-sm" src="../image/logo.png" alt="small logo">
+                    <img class="logo-dark" src="../image/logo.png" alt="dark logo">
                 </a>
             </li>
             <!-- end::header-logo -->
@@ -208,14 +203,6 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="dataTables_length" id="myTable_length">
                                 <label>
-                                    开设学期
-                                    <select name="myTable_length" aria-controls="myTable"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">2021-2022-1秋</option>
-                                        <option value="25">2021-2022-2春</option>
-                                    </select>
-                                </label>
-                                <label>
                                     选课资格
                                     <select name="myTable_length" aria-controls="myTable"
                                             class="custom-select custom-select-sm form-control form-control-sm">
@@ -236,10 +223,11 @@
                             <th>课程编码</th>
                             <th>课程名称</th>
                             <th>课程简介</th>
-                            <th>课程适用专业</th>
+                            <th>适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
-                            <th>选课资质限定</th>
+                            <th>选课资质</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -252,6 +240,9 @@
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
+                            <td>
+                                <button class="btn btn-primary" style="height: 25px;">添加</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -262,6 +253,9 @@
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
+                            <td>
+                                <button class="btn btn-primary" style="height: 25px;">添加</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -272,6 +266,9 @@
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
+                            <td>
+                                <button class="btn btn-primary" style="height: 25px;">添加</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>4</td>
@@ -282,6 +279,9 @@
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
+                            <td>
+                                <button class="btn btn-primary" style="height: 25px;">添加</button>
+                            </td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -290,10 +290,11 @@
                             <th>课程编码</th>
                             <th>课程名称</th>
                             <th>课程简介</th>
-                            <th>课程适用专业</th>
+                            <th>适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
-                            <th>选课资质限定</th>
+                            <th>选课资质</th>
+                            <th>操作</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -315,45 +316,45 @@
 <!-- end::main -->
 
 <!-- Plugin scripts -->
-<script src="vendors/bundle.js"></script>
+<script src="../vendors/bundle.js"></script>
 
 <!-- Chartjs -->
-<script src="vendors/charts/chartjs/chart.min.js"></script>
+<script src="../vendors/charts/chartjs/chart.min.js"></script>
 
 <!-- Apex chart -->
-<script src="vendors/charts/apex/apexcharts.min.js"></script>
+<script src="../vendors/charts/apex/apexcharts.min.js"></script>
 
 <!-- Circle progress -->
-<script src="vendors/circle-progress/circle-progress.min.js"></script>
+<script src="../vendors/circle-progress/circle-progress.min.js"></script>
 
 <!-- Peity -->
-<script src="vendors/charts/peity/jquery.peity.min.js"></script>
-<script src="js/peity.js"></script>
+<script src="../vendors/charts/peity/jquery.peity.min.js"></script>
+<script src="../js/peity.js"></script>
 
 <!-- Datepicker -->
-<script src="vendors/datepicker/daterangepicker.js"></script>
+<script src="../vendors/datepicker/daterangepicker.js"></script>
 
 <!-- Slick -->
-<script src="vendors/slick/slick.min.js"></script>
+<script src="../vendors/slick/slick.min.js"></script>
 
 <!-- Vamp -->
-<script src="vendors/vmap/jquery.vmap.min.js"></script>
-<script src="vendors/vmap/maps/jquery.vmap.usa.js"></script>
-<script src="js/vmap.js"></script>
+<script src="../vendors/vmap/jquery.vmap.min.js"></script>
+<script src="../vendors/vmap/maps/jquery.vmap.usa.js"></script>
+<script src="../js/vmap.js"></script>
 
 <!-- Dashboard scripts -->
-<script src="js/dashboard.js"></script>
+<script src="../js/dashboard.js"></script>
 
 
 
 <!-- DataTable -->
-<script src="vendors/dataTable/jquery.dataTables.min.js"></script>
-<script src="vendors/dataTable/dataTables.bootstrap4.min.js"></script>
-<script src="vendors/dataTable/dataTables.responsive.min.js"></script>
-<script src="js/datatable.js"></script>
+<script src="../vendors/dataTable/jquery.dataTables.min.js"></script>
+<script src="../vendors/dataTable/dataTables.bootstrap4.min.js"></script>
+<script src="../vendors/dataTable/dataTables.responsive.min.js"></script>
+<script src="../js/datatable.js"></script>
 
 <!-- Prism -->
-<script src="vendors/prism/prism.js"></script>
+<script src="../vendors/prism/prism.js"></script>
 
 
 
@@ -374,8 +375,8 @@
 </div>
 
 <!-- App scripts -->
-<script src="js/app.js"></script>
-<script src="js/index.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/chooseCourse.js"></script>
 </body>
 
 </html>

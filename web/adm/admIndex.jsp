@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: 87428
   Date: 2021/12/15
-  Time: 10:26
+  Time: 15:18
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,26 +17,26 @@
 
 
     <!-- Plugin styles -->
-    <link rel="stylesheet" href="vendors/bundle.css" type="text/css">
+    <link rel="stylesheet" href="../vendors/bundle.css" type="text/css">
 
     <!-- Datepicker -->
-    <link rel="stylesheet" href="vendors/datepicker/daterangepicker.css">
+    <link rel="stylesheet" href="../vendors/datepicker/daterangepicker.css">
 
     <!-- Slick -->
-    <link rel="stylesheet" href="vendors/slick/slick.css">
-    <link rel="stylesheet" href="vendors/slick/slick-theme.css">
+    <link rel="stylesheet" href="../vendors/slick/slick.css">
+    <link rel="stylesheet" href="../vendors/slick/slick-theme.css">
 
     <!-- Vmap -->
-    <link rel="stylesheet" href="vendors/vmap/jqvmap.min.css">
+    <link rel="stylesheet" href="../vendors/vmap/jqvmap.min.css">
 
     <!-- App styles -->
-    <link rel="stylesheet" href="css/app.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/app.min.css" type="text/css">
 
     <!-- DataTable -->
-    <link rel="stylesheet" href="vendors/dataTable/dataTables.min.css" type="text/css">
+    <link rel="stylesheet" href="../vendors/dataTable/dataTables.min.css" type="text/css">
 
     <!-- Prism -->
-    <link rel="stylesheet" href="vendors/prism/prism.css" type="text/css">
+    <link rel="stylesheet" href="../vendors/prism/prism.css" type="text/css">
 </head>
 
 <body>
@@ -63,10 +63,10 @@
 
     <!-- begin::logo -->
     <div id="logo">
-        <a href="index.jsp">
-            <img class="logo" src="image/logo.png" alt="logo">
-            <img class="logo-sm" src="image/logo.png" alt="small logo">
-            <img class="logo-dark" src="image/logo.png" alt="dark logo">
+        <a href="admIndex.jsp">
+            <img class="logo" src="../image/logo.png" alt="logo">
+            <img class="logo-sm" src="../image/logo.png" alt="small logo">
+            <img class="logo-dark" src="../image/logo.png" alt="dark logo">
         </a>
     </div>
     <!-- end::logo -->
@@ -74,20 +74,15 @@
     <!-- begin::navigation header -->
     <header class="navigation-header">
         <figure class="avatar avatar-state-success">
-            <img src="image/user/logo_03.png" class="rounded-circle" alt="image">
+            <img src="../image/user/logo_03.png" class="rounded-circle" alt="image">
         </figure>
         <div>
-            <h5>未登录</h5>
-            <p class="text-muted">学生端</p>
+            <h5>管理员</h5>
+            <p class="text-muted">管理端</p>
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="html/register.jsp" class="btn nav-link bg-info-bright" title="注册" data-toggle="tooltip">
-                        <i data-feather="user"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="html/login.jsp" class="btn nav-link bg-success-bright" title="登录" data-toggle="tooltip">
-                        <i data-feather="log-in"></i>
+                    <a href="#" class="btn nav-link bg-success-bright" title="登出" data-toggle="tooltip">
+                        <i data-feather="log-out"></i>
                     </a>
                 </li>
             </ul>
@@ -100,28 +95,9 @@
         <ul>
             <li class="navigation-divider">Main</li>
             <li>
-                <a href="index.jsp">
+                <a href="admIndex.jsp">
                     <i class="nav-link-icon" data-feather="bar-chart-2"></i>
-                    <span>已修课程</span>
-                </a>
-            </li>
-            <li>
-                <a href="html/chooseCourse.jsp">
-                    <i class="nav-link-icon" data-feather="check-circle"></i>
-                    <span>选择课程</span>
-                </a>
-            </li>
-            <li>
-                <a href="html/selectedCourse.jsp">
-                    <i class="nav-link-icon" data-feather="calendar"></i>
-                    <span>已选课程</span>
-                </a>
-            </li>
-            <li class="navigation-divider">Extras</li>
-            <li>
-                <a href="html/personalInformation.jsp">
-                    <i class="nav-link-icon" data-feather="user"></i>
-                    <span>个人信息</span>
+                    <span>编辑课程</span>
                 </a>
             </li>
         </ul>
@@ -150,10 +126,10 @@
 
             <!-- begin::header-logo -->
             <li class="nav-item" id="header-logo">
-                <a href="index.jsp">
-                    <img class="logo" src="image/logo.png" alt="logo">
-                    <img class="logo-sm" src="image/logo.png" alt="small logo">
-                    <img class="logo-dark" src="image/logo.png" alt="dark logo">
+                <a href="admIndex.jsp">
+                    <img class="logo" src="../image/logo.png" alt="logo">
+                    <img class="logo-sm" src="../image/logo.png" alt="small logo">
+                    <img class="logo-dark" src="../image/logo.png" alt="dark logo">
                 </a>
             </li>
             <!-- end::header-logo -->
@@ -191,15 +167,6 @@
     <!-- begin::main-content -->
     <div class="main-content">
 
-        <!-- begin::container -->
-        <div class="container">
-
-            <div class="page-header">
-                <h4>未登录</h4>
-                <small class="">Welcome, <span class="text-primary">同学</span></small>
-            </div>
-        </div>
-        <!-- end::container -->
 
         <div class="container">
             <div class="card">
@@ -211,18 +178,20 @@
                                     开设学期
                                     <select name="myTable_length" aria-controls="myTable"
                                             class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">2021-2022-1秋</option>
-                                        <option value="25">2021-2022-2春</option>
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
                                     </select>
                                 </label>
                                 <label>
-                                    选课资格
+                                    课程类型
                                     <select name="myTable_length" aria-controls="myTable"
                                             class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">全部</option>
-                                        <option value="25">专业选修课</option>
-                                        <option value="50">公共任选课</option>
-                                        <option value="100">专业必修课</option>
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
                                     </select>
                                 </label>
                             </div>
@@ -239,7 +208,7 @@
                             <th>课程适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
-                            <th>选课资质限定</th>
+                            <th>课程类型</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -293,7 +262,7 @@
                             <th>课程适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
-                            <th>选课资质限定</th>
+                            <th>课程类型</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -315,45 +284,45 @@
 <!-- end::main -->
 
 <!-- Plugin scripts -->
-<script src="vendors/bundle.js"></script>
+<script src="../vendors/bundle.js"></script>
 
 <!-- Chartjs -->
-<script src="vendors/charts/chartjs/chart.min.js"></script>
+<script src="../vendors/charts/chartjs/chart.min.js"></script>
 
 <!-- Apex chart -->
-<script src="vendors/charts/apex/apexcharts.min.js"></script>
+<script src="../vendors/charts/apex/apexcharts.min.js"></script>
 
 <!-- Circle progress -->
-<script src="vendors/circle-progress/circle-progress.min.js"></script>
+<script src="../vendors/circle-progress/circle-progress.min.js"></script>
 
 <!-- Peity -->
-<script src="vendors/charts/peity/jquery.peity.min.js"></script>
-<script src="js/peity.js"></script>
+<script src="../vendors/charts/peity/jquery.peity.min.js"></script>
+<script src="../js/peity.js"></script>
 
 <!-- Datepicker -->
-<script src="vendors/datepicker/daterangepicker.js"></script>
+<script src="../vendors/datepicker/daterangepicker.js"></script>
 
 <!-- Slick -->
-<script src="vendors/slick/slick.min.js"></script>
+<script src="../vendors/slick/slick.min.js"></script>
 
 <!-- Vamp -->
-<script src="vendors/vmap/jquery.vmap.min.js"></script>
-<script src="vendors/vmap/maps/jquery.vmap.usa.js"></script>
-<script src="js/vmap.js"></script>
+<script src="../vendors/vmap/jquery.vmap.min.js"></script>
+<script src="../vendors/vmap/maps/jquery.vmap.usa.js"></script>
+<script src="../js/vmap.js"></script>
 
 <!-- Dashboard scripts -->
-<script src="js/dashboard.js"></script>
+<script src="../js/dashboard.js"></script>
 
 
 
 <!-- DataTable -->
-<script src="vendors/dataTable/jquery.dataTables.min.js"></script>
-<script src="vendors/dataTable/dataTables.bootstrap4.min.js"></script>
-<script src="vendors/dataTable/dataTables.responsive.min.js"></script>
-<script src="js/datatable.js"></script>
+<script src="../vendors/dataTable/jquery.dataTables.min.js"></script>
+<script src="../vendors/dataTable/dataTables.bootstrap4.min.js"></script>
+<script src="../vendors/dataTable/dataTables.responsive.min.js"></script>
+<script src="../js/datatable.js"></script>
 
 <!-- Prism -->
-<script src="vendors/prism/prism.js"></script>
+<script src="../vendors/prism/prism.js"></script>
 
 
 
@@ -374,8 +343,8 @@
 </div>
 
 <!-- App scripts -->
-<script src="js/app.js"></script>
-<script src="js/index.js"></script>
+<script src="../js/app.js"></script>
+<script src="js/admIndex.js"></script>
 </body>
 
 </html>
