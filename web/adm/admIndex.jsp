@@ -173,27 +173,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_length" id="myTable_length">
-                                <label>
-                                    开设学期
-                                    <select name="myTable_length" aria-controls="myTable"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                </label>
-                                <label>
-                                    课程类型
-                                    <select name="myTable_length" aria-controls="myTable"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                </label>
+                            <div class="dataTables_length" >
+                                <button id="add_course_btn" class="btn btn-primary">添加课程</button>
                             </div>
                         </div>
                     </div>
@@ -205,10 +186,11 @@
                             <th>课程编码</th>
                             <th>课程名称</th>
                             <th>课程简介</th>
-                            <th>课程适用专业</th>
+                            <th>适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
                             <th>课程类型</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -221,6 +203,9 @@
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
+                            <td>
+                                <button class="btn btn-primary" style="height: 25px;">编辑</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -231,6 +216,9 @@
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
+                            <td>
+                                <button class="btn btn-primary" style="height: 25px;">编辑</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -241,6 +229,9 @@
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
+                            <td>
+                                <button class="btn btn-primary" style="height: 25px;">编辑</button>
+                            </td>
                         </tr>
                         <tr>
                             <td>4</td>
@@ -251,6 +242,9 @@
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
+                            <td>
+                                <button class="btn btn-primary" style="height: 25px;">编辑</button>
+                            </td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -259,10 +253,11 @@
                             <th>课程编码</th>
                             <th>课程名称</th>
                             <th>课程简介</th>
-                            <th>课程适用专业</th>
+                            <th>适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
                             <th>课程类型</th>
+                            <th>操作</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -271,6 +266,71 @@
         </div>
     </div>
     <!-- end::main-content -->
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加课程
+                    </h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="course_id">*课程编码</label>
+                            <input id="course_id" type="text" class="form-control" required autofocus oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="course_name">*课程名称</label>
+                            <input id="course_name" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_professional">适用专业</label>
+                            <select class="form-control" id="course_professional">
+                                <option value="全部">全部</option>
+                                <option value="软件工程">软件工程</option>
+                                <option value="计算机科学与技术">计算机科学与技术</option>
+                                <option value="数学与应用数学">数学与应用数学</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_term">*开设学期</label>
+                            <input id="course_term" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_all">*课程人数</label>
+                            <input id="course_all" type="text" class="form-control" required oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="course_type">课程类型</label>
+                            <select class="form-control" id="course_type">
+                                <option value="全部">全部</option>
+                                <option value="专业选修课">专业选修课</option>
+                                <option value="公共任选课">公共任选课</option>
+                                <option value="专业必修课">专业必修课</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_pid">前置课程代码</label>
+                            <input id="course_pid" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_info">课程简介</label>
+                            <textarea class="form-control" id="course_info" rows="3"></textarea>
+                        </div>
+                        <hr>
+                        <input type="button" id="enter_btn" class="btn btn-primary btn-block" value="确定">
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
     <!-- begin::footer -->
     <footer>

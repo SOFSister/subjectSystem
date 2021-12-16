@@ -60,7 +60,6 @@
         <input type="button" id="login_btn" class="btn btn-primary btn-block" value="登录">
     </form>
     <!-- ./ form -->
-
 </div>
 
 <!-- Plugin scripts -->

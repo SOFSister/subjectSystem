@@ -54,10 +54,15 @@ public class AdmLogin extends HttpServlet{
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        response.setContentType("application/json");
+        response.setContentType("application/json;charset=utf-8");
         request.setCharacterEncoding("UTF-8");
-        System.out.print(666);
-        int id= Integer.parseInt(request.getParameter("id"));
+        int id;
+        try {
+            id= Integer.parseInt(request.getParameter("id"));
+        }
+        catch (Exception ex){
+            id=-1;
+        }
         String pwd=request.getParameter("pwd");
         JsonObject jsonContainer =new JsonObject();
 
