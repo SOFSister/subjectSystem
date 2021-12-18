@@ -1,4 +1,6 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="course.Course" %>
+<%@ page import="db.CourseDAO" %><%--
   Created by IntelliJ IDEA.
   User: 87428
   Date: 2021/12/15
@@ -163,7 +165,9 @@
         <!-- end::header-right -->
     </div>
     <!-- end::header -->
-
+    <%
+        ArrayList<Course>courseArrayList= CourseDAO.selectAll();
+    %>
     <!-- begin::main-content -->
     <div class="main-content">
 
@@ -185,7 +189,6 @@
                             <th>#</th>
                             <th>课程编码</th>
                             <th>课程名称</th>
-                            <th>课程简介</th>
                             <th>适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
@@ -194,65 +197,29 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>适用java语言进行服务器方面的学习与思考</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>67/80</td>
-                            <td>专业选修课</td>
-                            <td>
-                                <button class="btn btn-primary" style="height: 25px;">编辑</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>适用java语言进行服务器方面的学习与思考</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>67/80</td>
-                            <td>专业选修课</td>
-                            <td>
-                                <button class="btn btn-primary" style="height: 25px;">编辑</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>适用java语言进行服务器方面的学习与思考</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>67/80</td>
-                            <td>专业选修课</td>
-                            <td>
-                                <button class="btn btn-primary" style="height: 25px;">编辑</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>适用java语言进行服务器方面的学习与思考</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>67/80</td>
-                            <td>专业选修课</td>
-                            <td>
-                                <button class="btn btn-primary" style="height: 25px;">编辑</button>
-                            </td>
-                        </tr>
+                        <%
+                            int index=0;
+                            for(Course course:courseArrayList){
+                        %>
+                                <td><%=++index%></td>
+                                <td><%=course.getId()%></td>
+                                <td><a title=<%="课程简介："+course.getInfo()%> data-toggle="tooltip" data-placement="top"><%=course.getName()%></a></td>
+                                <td><%=course.getProfessional()%></td>
+                                <td><%=course.getTerm()%></td>
+                                <td><%=course.getSelected()%>/<%=course.getTotal()%></td>
+                                <td><%=course.getKind()%></td>
+                                <td>
+                                    <button class="btn btn-primary edit_btn" style="height: 25px;">编辑</button>
+                                    <button class="btn btn-primary del_btn" style="height: 25px;">删除</button>
+                                </td>
+                            <%}
+                        %>
                         </tbody>
                         <tfoot>
                         <tr>
                             <th>#</th>
                             <th>课程编码</th>
                             <th>课程名称</th>
-                            <th>课程简介</th>
                             <th>适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
@@ -294,9 +261,9 @@
                             <label for="course_professional">适用专业</label>
                             <select class="form-control" id="course_professional">
                                 <option value="全部">全部</option>
-                                <option value="软件工程">软件工程</option>
-                                <option value="计算机科学与技术">计算机科学与技术</option>
-                                <option value="数学与应用数学">数学与应用数学</option>
+                                <option value="计算机类">计算机类</option>
+                                <option value="美术类">美术类</option>
+                                <option value="数学类">数学类</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -304,12 +271,12 @@
                             <input id="course_term" type="text" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="course_all">*课程人数</label>
-                            <input id="course_all" type="text" class="form-control" required oninput="value=value.replace(/[^\d]/g,'')">
+                            <label for="course_total">*课程人数</label>
+                            <input id="course_total" type="text" class="form-control" required oninput="value=value.replace(/[^\d]/g,'')">
                         </div>
                         <div class="form-group">
-                            <label for="course_type">课程类型</label>
-                            <select class="form-control" id="course_type">
+                            <label for="course_kind">课程类型</label>
+                            <select class="form-control" id="course_kind">
                                 <option value="全部">全部</option>
                                 <option value="专业选修课">专业选修课</option>
                                 <option value="公共任选课">公共任选课</option>
@@ -318,7 +285,7 @@
                         </div>
                         <div class="form-group">
                             <label for="course_pid">前置课程代码</label>
-                            <input id="course_pid" type="text" class="form-control" required>
+                            <input id="course_pid" type="text" class="form-control" required oninput="value=value.replace(/[^\d]/g,'')">
                         </div>
                         <div class="form-group">
                             <label for="course_info">课程简介</label>

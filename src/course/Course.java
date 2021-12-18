@@ -53,20 +53,13 @@ public class Course {
         this.term = term;
     }
 
-    public int getAll() {
-        return all;
+
+    public String getKind() {
+        return kind;
     }
 
-    public void setAll(int all) {
-        this.all = all;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
     public int getSelected() {
@@ -90,18 +83,27 @@ public class Course {
     private String info;
     private String professional;
     private String term;
-    private int all;
-    private String type;
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    private int total;
+    private String kind;
     private int selected;
     private int pId;
-    public Course(int id,String name,String info,String professional,String term,int all,String type,int selected,int pId){
+    public Course(int id,String name,String info,String professional,String term,int total,String kind,int selected,int pId){
         this.id=id;
         this.name=name;
         this.info=info;
         this.professional=professional;
         this.term=term;
-        this.all=all;
-        this.type=type;
+        this.total=total;
+        this.kind=kind;
         this.selected=selected;
         this.pId=pId;
     }
