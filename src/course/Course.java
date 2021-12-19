@@ -62,13 +62,6 @@ public class Course {
         this.kind = kind;
     }
 
-    public int getSelected() {
-        return selected;
-    }
-
-    public void setSelected(int selected) {
-        this.selected = selected;
-    }
 
     public int getpId() {
         return pId;
@@ -94,9 +87,18 @@ public class Course {
 
     private int total;
     private String kind;
-    private int selected;
     private int pId;
-    public Course(int id,String name,String info,String professional,String term,int total,String kind,int selected,int pId){
+
+    public int getIndexId() {
+        return indexId;
+    }
+
+    public void setIndexId(int indexId) {
+        this.indexId = indexId;
+    }
+
+    private int indexId;
+    public Course(int id,String name,String info,String professional,String term,int total,String kind,int pId){
         this.id=id;
         this.name=name;
         this.info=info;
@@ -104,7 +106,6 @@ public class Course {
         this.term=term;
         this.total=total;
         this.kind=kind;
-        this.selected=selected;
         this.pId=pId;
     }
 }

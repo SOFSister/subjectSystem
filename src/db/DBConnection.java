@@ -43,19 +43,22 @@ public class DBConnection {
     public DBConnection(){
         try {
             con=getConnection();
+            con.setAutoCommit(false);
         }
         catch (Exception ex){
             ex.printStackTrace();
         }
     }
-
+    public void rollBack() throws SQLException {
+        con.rollback();
+    }
 
     //执行查询
     public  ArrayList<Map<String,String>> queryForList(String sql){
         ArrayList<Map<String,String>> results=null;
         try {
             stmt=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-            System.out.print(sql);
+            //System.out.print(sql);
             rs=stmt.executeQuery(sql);
             if(rs!=null){
                 results=new ArrayList<Map<String,String>>();
@@ -95,6 +98,7 @@ public class DBConnection {
     //关闭相关对象
     public void close(){
         try {
+            con.commit();
             if(rs!=null) rs.close();
             if(stmt!=null) stmt.close();
             if(con!=null) con.close();
