@@ -52,10 +52,10 @@
     <!-- form -->
     <form>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="学号" required autofocus>
+            <input id="id" type="text" class="form-control" placeholder="学号" required autofocus oninput="value=value.replace(/[^\d]/g,'')">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="密码" required>
+            <input id="pwd" type="password" class="form-control" placeholder="密码" required>
         </div>
         <div class="form-group d-flex justify-content-between">
             <div class="custom-control custom-checkbox">
@@ -63,7 +63,7 @@
                 <label class="custom-control-label" for="customCheck1">自动登录</label>
             </div>
         </div>
-        <button class="btn btn-primary btn-block">登录</button>
+        <button id="login_btn" class="btn btn-primary btn-block" type="button">登录</button>
         <hr>
         <p class="text-muted">没有账号？</p>
         <a href="register.jsp" class="btn btn-outline-light btn-sm">立即注册！</a>

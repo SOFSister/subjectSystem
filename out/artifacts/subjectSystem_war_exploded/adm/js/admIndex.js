@@ -56,7 +56,32 @@ $(document).ready(function (){
 
     $(".edit_btn").click(edit);
     $("#edit_enter_btn").click(edit_enter_btn);
+    $(".del_btn").click(del);
 });
+function del(){
+    var i = $(this).parent().parent().parent().find("tr").index($(this).parent().parent()[0]);
+    $.ajax({
+        type: "post",
+        url: "AdmCourse",
+        async:false,
+        data: {
+            "action":"deleteCourse",
+            "id":$("#tbody tr:eq("+i+") td:eq(0)").html(),
+        },
+        dataType: "json",
+        success: function (response) {
+            if(response.success){
+                window.location.reload();
+            }
+            else{
+                swal("系统错误!", "请重试", "error");
+            }
+        },
+        error:function (response){
+            swal("系统错误!", "请重试", "error");
+        }
+    });
+}
 function edit(){
     var i = $(this).parent().parent().parent().find("tr").index($(this).parent().parent()[0]);
     //console.log($("#tbody tr:eq("+i+") td:eq(0)").html());

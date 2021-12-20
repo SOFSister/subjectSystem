@@ -1,4 +1,5 @@
-<%--
+<%@ page import="user.User" %>
+<%@ page import="db.UserDAO" %><%--
   Created by IntelliJ IDEA.
   User: 87428
   Date: 2021/12/15
@@ -7,9 +8,19 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String userID= (String) session.getAttribute("userID");
-    if(userID==null){
-        response.sendRedirect("../index.jsp");
+    String userID=null;
+    User user=null;
+    try {
+        userID= (String) session.getAttribute("userID");
+        if(userID!=null){
+            user= UserDAO.selectById(userID);
+        }
+        else{
+            response.sendRedirect("../index.jsp");
+        }
+    }
+    catch (Exception ex){
+        ex.printStackTrace();
     }
 %>
 <!doctype html>
@@ -78,19 +89,37 @@
             <img src="../image/user/logo_03.png" class="rounded-circle" alt="image">
         </figure>
         <div>
+            <%
+                if(userID==null){%>
             <h5>未登录</h5>
+            <%}
+            else{%>
+            <h5><%=user.getName()%></h5>
+            <%}
+            %>
             <p class="text-muted">学生端</p>
             <ul class="nav">
+                <%
+                    if(userID==null){%>
                 <li class="nav-item">
-                    <a href="register.jsp" class="btn nav-link bg-info-bright" title="注册" data-toggle="tooltip">
+                    <a href="html/register.jsp" class="btn nav-link bg-info-bright" title="注册" data-toggle="tooltip">
                         <i data-feather="user"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="login.jsp" class="btn nav-link bg-success-bright" title="登录" data-toggle="tooltip">
+                    <a href="html/login.jsp" class="btn nav-link bg-success-bright" title="登录" data-toggle="tooltip">
                         <i data-feather="log-in"></i>
                     </a>
                 </li>
+                <%}
+                else{%>
+                <li class="nav-item">
+                    <a href="#" id="logout_btn" class="btn nav-link bg-success-bright" title="注销" data-toggle="tooltip">
+                        <i data-feather="log-out"></i>
+                    </a>
+                </li>
+                <%}
+                %>
             </ul>
         </div>
     </header>
@@ -198,30 +227,32 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="dataTables_length" id="myTable_length">
+                                <%if(user!=null){%>
                                 <label>
                                     <h3>学号</h3>
-                                    <span>666</span>
+                                    <span id="id_span"><%=userID%></span>
                                 </label>
                                 <hr>
                                 <label>
                                     <h3>姓名</h3>
-                                    <span>666</span>
+                                    <span id="name_span"><%=user.getName()%></span>
                                 </label>
                                 <hr>
                                 <label>
                                     <h3>学院</h3>
-                                    <span>666</span>
+                                    <span id="college_span"><%=user.getCollege()%></span>
                                 </label>
                                 <hr>
                                 <label>
                                     <h3>专业</h3>
-                                    <span>666</span>
+                                    <span id="professional_span"><%=user.getProfessional()%></span>
                                 </label>
                                 <hr>
                                 <label>
                                     <h3>联系方式</h3>
-                                    <span>666</span>
+                                    <span id="phone_span"><%=user.getPhone()%></span>
                                 </label>
+                                <%}%>
                             </div>
                         </div>
                     </div>
@@ -251,27 +282,27 @@
                 <div class="modal-body" id="modal-body">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="学号" required autofocus>
+                            <input id="id" type="text" class="form-control" placeholder="学号" required autofocus oninput="value=value.replace(/[^\d]/g,'')" disabled="disabled">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="姓名" required>
+                            <input id="name" type="text" class="form-control" placeholder="姓名" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="学院" required>
+                            <input id="college" type="text" class="form-control" placeholder="学院" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="专业" required>
+                            <input id="professional" type="text" class="form-control" placeholder="专业" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="联系方式" required>
+                            <input id="phone" type="text" class="form-control" placeholder="联系方式" required oninput="value=value.replace(/[^\d]/g,'')">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="密码" required>
+                            <input id="pwd" type="password" class="form-control" placeholder="密码" required>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="enter_btn">确定
+                    <button type="button" class="btn btn-primary" id="enter_btn">确定
                     </button>
                 </div>
             </div><!-- /.modal-content -->

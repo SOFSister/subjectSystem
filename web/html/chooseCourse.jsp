@@ -1,4 +1,5 @@
-<%--
+<%@ page import="user.User" %>
+<%@ page import="db.UserDAO" %><%--
   Created by IntelliJ IDEA.
   User: 87428
   Date: 2021/12/15
@@ -7,10 +8,20 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-String userID= (String) session.getAttribute("userID");
-if(userID==null){
-    response.sendRedirect("../index.jsp");
-}
+    String userID=null;
+    User user=null;
+    try {
+        userID= (String) session.getAttribute("userID");
+        if(userID!=null){
+            user= UserDAO.selectById(userID);
+        }
+        else{
+            response.sendRedirect("../index.jsp");
+        }
+    }
+    catch (Exception ex){
+        ex.printStackTrace();
+    }
 %>
 <!doctype html>
 <html lang="en">
@@ -78,19 +89,37 @@ if(userID==null){
             <img src="../image/user/logo_03.png" class="rounded-circle" alt="image">
         </figure>
         <div>
+            <%
+                if(userID==null){%>
             <h5>未登录</h5>
+            <%}
+            else{%>
+            <h5><%=user.getName()%></h5>
+            <%}
+            %>
             <p class="text-muted">学生端</p>
             <ul class="nav">
+                <%
+                    if(userID==null){%>
                 <li class="nav-item">
-                    <a href="register.jsp" class="btn nav-link bg-info-bright" title="注册" data-toggle="tooltip">
+                    <a href="html/register.jsp" class="btn nav-link bg-info-bright" title="注册" data-toggle="tooltip">
                         <i data-feather="user"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="login.jsp" class="btn nav-link bg-success-bright" title="登录" data-toggle="tooltip">
+                    <a href="html/login.jsp" class="btn nav-link bg-success-bright" title="登录" data-toggle="tooltip">
                         <i data-feather="log-in"></i>
                     </a>
                 </li>
+                <%}
+                else{%>
+                <li class="nav-item">
+                    <a href="#" id="logout_btn" class="btn nav-link bg-success-bright" title="注销" data-toggle="tooltip">
+                        <i data-feather="log-out"></i>
+                    </a>
+                </li>
+                <%}
+                %>
             </ul>
         </div>
     </header>
@@ -196,8 +225,16 @@ if(userID==null){
         <div class="container">
 
             <div class="page-header">
+                <%
+                    if(userID==null){%>
                 <h4>未登录</h4>
                 <small class="">Welcome, <span class="text-primary">同学</span></small>
+                <%}
+                else{%>
+                <h4><%=user.getCollege()+"  "+user.getProfessional()%></h4>
+                <small class="">Welcome, <span class="text-primary"><%=user.getName()%></span></small>
+                <%}
+                %>
             </div>
         </div>
         <!-- end::container -->
@@ -209,7 +246,7 @@ if(userID==null){
                         <div class="col-sm-12 col-md-6">
                             <div class="dataTables_length" id="myTable_length">
                                 <label>
-                                    选课资格
+                                    课程类型
                                     <select name="myTable_length" aria-controls="myTable"
                                             class="custom-select custom-select-sm form-control form-control-sm">
                                         <option value="10">全部</option>
@@ -225,81 +262,69 @@ if(userID==null){
                     <table id="myTable" class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th>#</th>
                             <th>课程编码</th>
                             <th>课程名称</th>
-                            <th>课程简介</th>
                             <th>适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
-                            <th>选课资质</th>
+                            <th>课程类型</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>1</td>
                             <td>225071001</td>
                             <td>网络编程</td>
-                            <td>适用java语言进行服务器方面的学习与思考</td>
                             <td>软件工程</td>
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
                             <td>
-                                <button class="btn btn-primary" style="height: 25px;">添加</button>
+                                <button class="btn btn-success" style="height: 25px;">选课</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>2</td>
                             <td>225071001</td>
                             <td>网络编程</td>
-                            <td>适用java语言进行服务器方面的学习与思考</td>
                             <td>软件工程</td>
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
                             <td>
-                                <button class="btn btn-primary" style="height: 25px;">添加</button>
+                                <button class="btn btn-success" style="height: 25px;">选课</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>3</td>
                             <td>225071001</td>
                             <td>网络编程</td>
-                            <td>适用java语言进行服务器方面的学习与思考</td>
                             <td>软件工程</td>
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
                             <td>
-                                <button class="btn btn-primary" style="height: 25px;">添加</button>
+                                <button class="btn btn-success" style="height: 25px;">选课</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>4</td>
                             <td>225071001</td>
                             <td>网络编程</td>
-                            <td>适用java语言进行服务器方面的学习与思考</td>
                             <td>软件工程</td>
                             <td>大三秋</td>
                             <td>67/80</td>
                             <td>专业选修课</td>
                             <td>
-                                <button class="btn btn-primary" style="height: 25px;">添加</button>
+                                <button class="btn btn-success" style="height: 25px;">选课</button>
                             </td>
                         </tr>
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>#</th>
                             <th>课程编码</th>
                             <th>课程名称</th>
-                            <th>课程简介</th>
                             <th>适用专业</th>
                             <th>开设学期</th>
                             <th>课程人数</th>
-                            <th>选课资质</th>
+                            <th>课程类型</th>
                             <th>操作</th>
                         </tr>
                         </tfoot>

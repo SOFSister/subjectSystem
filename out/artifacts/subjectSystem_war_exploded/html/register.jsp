@@ -52,24 +52,24 @@
     <!-- form -->
     <form>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="学号" required autofocus>
+            <input id="id" type="text" class="form-control" placeholder="学号" required autofocus oninput="value=value.replace(/[^\d]/g,'')">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="姓名" required>
+            <input id="name" type="text" class="form-control" placeholder="姓名" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="学院" required>
+            <input id="college" type="text" class="form-control" placeholder="学院" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="专业" required>
+            <input id="professional" type="text" class="form-control" placeholder="专业" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="联系方式" required>
+            <input id="phone" type="text" class="form-control" placeholder="联系方式" required oninput="value=value.replace(/[^\d]/g,'')">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="密码" required>
+            <input id="pwd" type="password" class="form-control" placeholder="密码" required>
         </div>
-        <button class="btn btn-primary btn-block">注册</button>
+        <button class="btn btn-primary btn-block" id="register_btn" type="button">注册</button>
         <hr>
         <p class="text-muted">已经拥有账号？</p>
         <a href="login.jsp" class="btn btn-outline-light btn-sm">去登陆！</a>
