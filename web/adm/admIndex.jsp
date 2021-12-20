@@ -84,7 +84,7 @@
             <p class="text-muted">管理端</p>
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="#" class="btn nav-link bg-success-bright" title="登出" data-toggle="tooltip">
+                    <a href="html/admLogin.jsp" class="btn nav-link bg-success-bright" title="登出" data-toggle="tooltip">
                         <i data-feather="log-out"></i>
                     </a>
                 </li>

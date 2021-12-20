@@ -72,6 +72,13 @@ public class AdmCourse extends HttpServlet{
                 e.printStackTrace();
             }
         }
+        else if(action.equals("deleteCourse")){
+            try {
+                deleteCourse(request,response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
     protected void insertCourse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         response.setContentType("application/json;charset=utf-8");
@@ -159,4 +166,25 @@ public class AdmCourse extends HttpServlet{
             ex.printStackTrace();
         }
     }
+    protected void deleteCourse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        try {
+            response.setContentType("application/json;charset=utf-8");
+            request.setCharacterEncoding("UTF-8");
+            int id= Integer.parseInt(request.getParameter("id"));
+            JsonObject jsonContainer =new JsonObject();
+            if(CourseDAO.deleteCourse(id)){
+                jsonContainer.addProperty("success",true);
+            }
+            else{
+                jsonContainer.addProperty("success",false);
+            }
+            PrintWriter writer = response.getWriter();
+            writer.write(new Gson().toJson(jsonContainer));
+            writer.flush();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
 }

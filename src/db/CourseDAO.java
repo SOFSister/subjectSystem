@@ -118,4 +118,24 @@ public class CourseDAO {
         }
         return true;
     }
+
+    public static boolean deleteCourse(int id) throws SQLException {
+        DBConnection db=null;
+        try {
+            db = new DBConnection();
+            //删除已选表内的id
+            String sql = "delete from selected_course where id="+id;
+            db.update(sql);
+            //将课程表内修改
+            sql="delete from course where id="+id;
+            db.update(sql);
+            db.close();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            db.rollBack();
+            return false;
+        }
+        return true;
+    }
 }
