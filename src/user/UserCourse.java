@@ -58,6 +58,9 @@ public class UserCourse extends HttpServlet{
         else if(action.equals("getUser")){
             getUser(request,response);
         }
+        else if(action.equals("updateUser")){
+            updateUser(request,response);
+        }
     }
     protected void getUserID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -148,6 +151,29 @@ public class UserCourse extends HttpServlet{
             PrintWriter writer = response.getWriter();
             writer.write(new Gson().toJson(jsonContainer));
             writer.flush();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    protected void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            response.setContentType("application/json;charset=utf-8");
+            request.setCharacterEncoding("UTF-8");
+            String userID= request.getParameter("id");
+            String name=request.getParameter("name");
+            String college=request.getParameter("college");
+            String professional=request.getParameter("professional");
+            String phone=request.getParameter("phone");
+            String pwd=request.getParameter("pwd");
+            User user=new User(userID,name,college,professional,phone,pwd);
+            if(UserDAO.updateUser(user)>0){
+                JsonObject jsonContainer =new JsonObject();
+                jsonContainer.addProperty("success",true);
+                PrintWriter writer = response.getWriter();
+                writer.write(new Gson().toJson(jsonContainer));
+                writer.flush();
+            }
         }
         catch (Exception ex){
             ex.printStackTrace();

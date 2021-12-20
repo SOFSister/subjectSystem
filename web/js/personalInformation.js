@@ -51,13 +51,12 @@ $(document).ready(function (){
             },
             dataType: "json",
             success: function (response) {
-
+                $('#myModal').modal('hide');
+                window.location.reload();
             },
             error:function (response){
                 swal("系统错误!", "请重试", "error");
             }
         });
-        swal("恭喜!", "修改信息成功!", "success");
-        $('#myModal').modal('hide');
     });
 });

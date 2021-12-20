@@ -1,5 +1,6 @@
 package db;
 
+import course.Course;
 import user.User;
 
 import java.util.ArrayList;
@@ -59,5 +60,13 @@ public class UserDAO {
             ex.printStackTrace();
         }
         return user;
+    }
+    public static int updateUser(User user){
+        DBConnection db=new DBConnection();
+        String sql="update user_info set name='"+user.getName()+"',college='"+user.getCollege()+"',professional='"+user.getProfessional()
+                +"',phone='"+user.getPhone()+"',pwd='"+user.getPwd()+"' where user_id='"+user.getUserId()+"'";
+        int i=db.update(sql);
+        db.close();
+        return i;
     }
 }
