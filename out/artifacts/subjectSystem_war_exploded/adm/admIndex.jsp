@@ -193,6 +193,7 @@
                             <th>开设学期</th>
                             <th>课程人数</th>
                             <th>课程类型</th>
+                            <th>跨选</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -208,6 +209,7 @@
                                     <td><%=course.getTerm()%></td>
                                     <td><%=selected%>/<%=course.getTotal()%></td>
                                     <td><%=course.getKind()%></td>
+                                    <td><%=course.getFlag()%></td>
                                     <td>
                                         <button class="btn btn-primary edit_btn" style="height: 25px;">编辑</button>
                                         <button class="btn btn-primary del_btn" style="height: 25px;">删除</button>
@@ -224,6 +226,7 @@
                             <th>开设学期</th>
                             <th>课程人数</th>
                             <th>课程类型</th>
+                            <th>跨选</th>
                             <th>操作</th>
                         </tr>
                         </tfoot>
@@ -286,6 +289,13 @@
                         <div class="form-group">
                             <label for="course_pid">前置课程代码</label>
                             <input id="course_pid" type="text" class="form-control" required oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="course_flag">能否跨专业选修</label>
+                            <select class="form-control" id="course_flag">
+                                <option value="是">是</option>
+                                <option value="否">否</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="course_info">课程简介</label>
@@ -351,6 +361,13 @@
                         <div class="form-group">
                             <label for="edit_course_pid">前置课程代码</label>
                             <input id="edit_course_pid" type="text" class="form-control" required oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_course_flag">能否跨专业选修</label>
+                            <select class="form-control" id="edit_course_flag">
+                                <option value="是">是</option>
+                                <option value="否">否</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="edit_course_info">课程简介</label>

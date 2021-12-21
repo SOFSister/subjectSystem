@@ -14,6 +14,7 @@ $(document).ready(function (){
         var course_total=$("#course_total").val();
         var course_kind=$("#course_kind").val();
         var course_pid=$("#course_pid").val();
+        var course_flag=$("#course_flag").val();
         var course_info=$("#course_info").val();
         if(course_id==""||course_name==""||course_term==""||course_total==""){
             toastr.error('请完整填写课程信息');
@@ -35,6 +36,7 @@ $(document).ready(function (){
                     "term":course_term,
                     "total":course_total,
                     "kind":course_kind,
+                    "flag":course_flag,
                     "p_id":course_pid
                 },
                 dataType: "json",
@@ -109,6 +111,7 @@ function edit(){
                     pid=response.p_id;
                 $("#edit_course_pid").val(pid);
                 $("#edit_course_info").val(response.info);
+                $("#edit_course_flag").val(response.flag);
             }
             else{
                 swal("系统错误!", "请重试", "error");
@@ -129,6 +132,7 @@ function edit_enter_btn(){
     var course_kind=$("#edit_course_kind").val();
     var course_pid=$("#edit_course_pid").val();
     var course_info=$("#edit_course_info").val();
+    var course_flag=$("#edit_course_flag").val();
     if(course_id==""||course_name==""||course_term==""||course_total==""){
         toastr.error('请完整填写课程信息');
         return;
@@ -150,6 +154,7 @@ function edit_enter_btn(){
                 "term":course_term,
                 "total":course_total,
                 "kind":course_kind,
+                "flag":course_flag,
                 "p_id":course_pid
             },
             dataType: "json",

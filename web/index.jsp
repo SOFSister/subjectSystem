@@ -241,7 +241,6 @@
             </div>
         </div>
         <!-- end::container -->
-
         <div class="container">
             <div class="card">
                 <div class="card-body">
@@ -252,7 +251,6 @@
                             <th>课程名称</th>
                             <th>适用专业</th>
                             <th>开设学期</th>
-                            <th>课程人数</th>
                             <th>课程类型</th>
                         </tr>
                         </thead>
@@ -262,7 +260,6 @@
                             <td>网络编程</td>
                             <td>软件工程</td>
                             <td>大三秋</td>
-                            <td>67/80</td>
                             <td>专业选修课</td>
                         </tr>
                         <tr>
@@ -270,7 +267,6 @@
                             <td>网络编程</td>
                             <td>软件工程</td>
                             <td>大三秋</td>
-                            <td>67/80</td>
                             <td>专业选修课</td>
                         </tr>
                         <tr>
@@ -278,7 +274,6 @@
                             <td>网络编程</td>
                             <td>软件工程</td>
                             <td>大三秋</td>
-                            <td>67/80</td>
                             <td>专业选修课</td>
                         </tr>
                         <tr>
@@ -286,7 +281,6 @@
                             <td>网络编程</td>
                             <td>软件工程</td>
                             <td>大三秋</td>
-                            <td>67/80</td>
                             <td>专业选修课</td>
                         </tr>
                         </tbody>
@@ -296,7 +290,6 @@
                             <th>课程名称</th>
                             <th>适用专业</th>
                             <th>开设学期</th>
-                            <th>课程人数</th>
                             <th>课程类型</th>
                         </tr>
                         </tfoot>

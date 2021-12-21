@@ -15,10 +15,7 @@ package user;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import course.Course;
-import db.AdmDAO;
-import db.CourseDAO;
-import db.DBConnection;
-import db.UserDAO;
+import db.*;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
@@ -60,6 +57,12 @@ public class UserCourse extends HttpServlet{
         }
         else if(action.equals("updateUser")){
             updateUser(request,response);
+        }
+        else if(action.equals("logout")){
+            logout(request,response);
+        }
+        else if(action.equals("addCourse")){
+            addCourse(request,response);
         }
     }
     protected void getUserID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -104,6 +107,22 @@ public class UserCourse extends HttpServlet{
                     jsonContainer.addProperty("success",true);
                 }
             }
+            PrintWriter writer = response.getWriter();
+            writer.write(new Gson().toJson(jsonContainer));
+            writer.flush();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            response.setContentType("application/json;charset=utf-8");
+            request.setCharacterEncoding("UTF-8");
+            HttpSession session=request.getSession();
+            session.invalidate();
+            JsonObject jsonContainer =new JsonObject();
+            jsonContainer.addProperty("success",true);
             PrintWriter writer = response.getWriter();
             writer.write(new Gson().toJson(jsonContainer));
             writer.flush();
@@ -179,4 +198,39 @@ public class UserCourse extends HttpServlet{
             ex.printStackTrace();
         }
     }
+    protected void addCourse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            response.setContentType("application/json;charset=utf-8");
+            request.setCharacterEncoding("UTF-8");
+            String userID= request.getParameter("userID");
+            String professional= request.getParameter("professional");
+            int id=Integer.parseInt(request.getParameter("id"));
+            User user=UserDAO.selectById(userID);
+            boolean flag=true;
+            if(professional.equals("全部")||professional.equals(user.getProfessional())){
+                flag=false;
+            }
+            Course course=CourseDAO.selectAimID(id).get(0);
+            if(HaveCourseDAO.selectAim(course.getpId(),userID)==0){
+                JsonObject jsonContainer =new JsonObject();
+                jsonContainer.addProperty("success",false);
+                jsonContainer.addProperty("info",course.getpId());
+                PrintWriter writer = response.getWriter();
+                writer.write(new Gson().toJson(jsonContainer));
+                writer.flush();
+                return;
+            }
+            if(SelectedCourseDAO.addSelectedCourse(userID,id,flag)){
+                JsonObject jsonContainer =new JsonObject();
+                jsonContainer.addProperty("success",true);
+                PrintWriter writer = response.getWriter();
+                writer.write(new Gson().toJson(jsonContainer));
+                writer.flush();
+            }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
 }

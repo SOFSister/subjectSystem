@@ -90,8 +90,9 @@ public class AdmCourse extends HttpServlet{
         String term=request.getParameter("term");
         int total=Integer.parseInt(request.getParameter("total"));
         String kind=request.getParameter("kind");
+        String flag=request.getParameter("flag");
         int pId=Integer.parseInt(request.getParameter("p_id"));
-        Course course=new Course(id,name,info,professional,term,total,kind,pId);
+        Course course=new Course(id,name,info,professional,term,total,kind,pId,flag);
         JsonObject jsonContainer =new JsonObject();
         if(CourseDAO.selectAimID(id).size()!=0){
             jsonContainer.addProperty("success",false);
@@ -123,6 +124,7 @@ public class AdmCourse extends HttpServlet{
             jsonContainer.addProperty("total",course.getTotal());
             jsonContainer.addProperty("kind",course.getKind());
             jsonContainer.addProperty("p_id",course.getpId());
+            jsonContainer.addProperty("flag",course.getFlag());
         }
         else{
             jsonContainer.addProperty("success",false);
@@ -143,8 +145,9 @@ public class AdmCourse extends HttpServlet{
             String term=request.getParameter("term");
             int total=Integer.parseInt(request.getParameter("total"));
             String kind=request.getParameter("kind");
+            String flag=request.getParameter("flag");
             int pId=Integer.parseInt(request.getParameter("p_id"));
-            Course course=new Course(id,name,info,professional,term,total,kind,pId);
+            Course course=new Course(id,name,info,professional,term,total,kind,pId,flag);
             int lastId=CourseDAO.selectLastIDByIndexId(indexId);
             JsonObject jsonContainer =new JsonObject();
             if(id!=lastId&&CourseDAO.selectAimID(id).size()!=0){

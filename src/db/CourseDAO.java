@@ -24,14 +24,15 @@ public class CourseDAO {
         DBConnection db=null;
         try {
             db = new DBConnection();
-            String sql = "insert into course(id,name,info,professional,term,total,kind,p_id) values(" + course.getId() +
+            String sql = "insert into course(id,name,info,professional,term,total,kind,p_id,flag,version) values(" + course.getId() +
                     ",'" + course.getName() + "','" + course.getInfo() + "','" + course.getProfessional() + "','" + course.getTerm() +
-                    "'," + course.getTotal() + ",'" + course.getKind() + "',"  + course.getpId() + ")";
+                    "'," + course.getTotal() + ",'" + course.getKind() + "',"  + course.getpId() + ",'"+course.getFlag()+"',"+0+")";
             i = db.update(sql);
             db.close();
         }
         catch (Exception ex){
             db.rollBack();
+            db.close();
         }
         return i;
     }
@@ -54,7 +55,8 @@ public class CourseDAO {
                 String kind = map.get("kind");
                 int pId = Integer.parseInt(map.get("p_id"));
                 int indexId = Integer.parseInt(map.get("index_id"));
-                Course course = new Course(id, name, info, professional, term, total, kind, pId);
+                String flag=map.get("flag");
+                Course course = new Course(id, name, info, professional, term, total, kind, pId,flag);
                 course.setIndexId(indexId);
                 arrayList.add(course);
             }
@@ -62,6 +64,7 @@ public class CourseDAO {
         }
         catch (Exception ex){
             db.rollBack();
+            db.close();
         }
 
         return arrayList;
@@ -82,7 +85,8 @@ public class CourseDAO {
             String kind = map.get("kind");
             int pId = Integer.parseInt(map.get("p_id"));
             int indexId = Integer.parseInt(map.get("index_id"));
-            Course course = new Course(id, name, info, professional, term, total, kind, pId);
+            String flag=map.get("flag");
+            Course course = new Course(id, name, info, professional, term, total, kind, pId,flag);
             course.setIndexId(indexId);
             arrayList.add(course);
         }
@@ -107,13 +111,14 @@ public class CourseDAO {
             //将课程表内修改
             sql="update course set id="+newID+",name='"+course.getName()+"',info='"+course.getInfo()
                     +"',professional='"+course.getProfessional()+"',term='"+course.getTerm()
-                    +"',total="+course.getTotal()+",kind='"+course.getKind()+"',p_id="+course.getpId()+" where index_id="+indexID;
+                    +"',total="+course.getTotal()+",kind='"+course.getKind()+"',p_id="+course.getpId()+",flag='"+course.getFlag()+"' where index_id="+indexID;
             db.update(sql);
             db.close();
         }
         catch (Exception ex){
             ex.printStackTrace();
             db.rollBack();
+            db.close();
             return false;
         }
         return true;
@@ -134,6 +139,7 @@ public class CourseDAO {
         catch (Exception ex){
             ex.printStackTrace();
             db.rollBack();
+            db.close();
             return false;
         }
         return true;

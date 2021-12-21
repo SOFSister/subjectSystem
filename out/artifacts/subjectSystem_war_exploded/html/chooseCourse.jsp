@@ -1,5 +1,9 @@
 <%@ page import="user.User" %>
-<%@ page import="db.UserDAO" %><%--
+<%@ page import="db.UserDAO" %>
+<%@ page import="course.Course" %>
+<%@ page import="db.CourseDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="db.SelectedCourseDAO" %><%--
   Created by IntelliJ IDEA.
   User: 87428
   Date: 2021/12/15
@@ -238,27 +242,12 @@
             </div>
         </div>
         <!-- end::container -->
-
+        <%
+            ArrayList<Course> courseArrayList= CourseDAO.selectAll();
+        %>
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_length" id="myTable_length">
-                                <label>
-                                    课程类型
-                                    <select name="myTable_length" aria-controls="myTable"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">全部</option>
-                                        <option value="25">专业选修课</option>
-                                        <option value="50">公共任选课</option>
-                                        <option value="100">专业必修课</option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
                     <table id="myTable" class="table table-striped table-bordered">
                         <thead>
                         <tr>
@@ -271,51 +260,36 @@
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody">
+                        <%
+                            if(user!=null)
+                            for(Course course:courseArrayList){
+                                if(!course.getProfessional().equals(user.getProfessional())&&course.getFlag().equals("否"))
+                                    continue;
+                                int selected= SelectedCourseDAO.selectAimId(course.getId());
+                        %>
                         <tr>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>67/80</td>
-                            <td>专业选修课</td>
+                            <td><%=course.getId()%></td>
+                            <td><a title=<%="课程简介："+course.getInfo()%> data-toggle="tooltip" data-placement="top"><%=course.getName()%></a></td>
+                            <td><%=course.getProfessional()%></td>
+                            <td><%=course.getTerm()%></td>
+                            <td><%=selected%>/<%=course.getTotal()%></td>
+                            <td><%=course.getKind()%></td>
                             <td>
-                                <button class="btn btn-success" style="height: 25px;">选课</button>
+                                <%
+                                    if(SelectedCourseDAO.selectAim(course.getId(),userID)>0){%>
+                                        <button class="btn btn-danger del_btn" style="height: 25px;">退课</button>
+                                <%
+                                    }else if(selected>=course.getTotal()){%>
+                                        <button class="btn btn-secondary" style="height: 25px;" disabled="disabled">已满</button>
+                                <%
+                                    }else{%>
+                                        <button class="btn btn-success add_btn" style="height: 25px;">选课</button>
+                                <%}%>
                             </td>
                         </tr>
-                        <tr>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>67/80</td>
-                            <td>专业选修课</td>
-                            <td>
-                                <button class="btn btn-success" style="height: 25px;">选课</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>67/80</td>
-                            <td>专业选修课</td>
-                            <td>
-                                <button class="btn btn-success" style="height: 25px;">选课</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>67/80</td>
-                            <td>专业选修课</td>
-                            <td>
-                                <button class="btn btn-success" style="height: 25px;">选课</button>
-                            </td>
-                        </tr>
+                        <%}
+                        %>
                         </tbody>
                         <tfoot>
                         <tr>

@@ -2,6 +2,7 @@ package db;
 
 import course.Course;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -36,5 +37,59 @@ public class SelectedCourseDAO {
         ArrayList<Map<String, String>> rs = db.queryForList(sql);
         db.close();
         return rs.size();
+    }
+    public static int selectAim(int aimId,String userId){
+        DBConnection db=new DBConnection();
+        String sql="select * from selected_course where id="+aimId+" and user_id='"+userId+"'";
+        ArrayList<Map<String, String>> rs = db.queryForList(sql);
+        db.close();
+        return rs.size();
+    }
+    public static boolean addSelectedCourse(String userId,int id,boolean flag) throws SQLException {
+        DBConnection db=null;
+        String sql="";
+        try{
+            db=new DBConnection();
+            if(flag){
+                sql="select version from course where id="+id+" and flag= '是'";
+            }
+            else{
+                sql="select version from course where id="+id;
+            }
+            ArrayList<Map<String,String>>rs=db.queryForList(sql);
+            if(rs.size()==0){
+                throw new Exception("用户与管理员并发");
+            }
+            int version=Integer.parseInt(rs.get(0).get("version"));
+            sql="select (select total margin from course c where c.id="+id+" and c.version="+version+")-(select count(distinct user_id) margin from course c,selected_course sc where c.id="+id+" and c.version="+version+" and sc.id=c.id) margin;";
+            rs=db.queryForList(sql);
+            int margin=0;
+            if(rs.size()==0){
+                throw new Exception("并发");
+            }
+            else {
+                System.out.println("margin:"+rs.get(0).get("margin"));
+                margin=Integer.parseInt(rs.get(0).get("margin"));
+                if(margin<=0){
+                    throw new Exception("用户与用户并发");
+                }
+            }
+            //加课
+            sql="insert into selected_course(user_id,id) values('"+userId+"',"+id+")";
+            db.update(sql);
+            sql="update course set version=version+1 where id="+id+" and version="+version;
+            int i=db.update(sql);
+            if(i==0){
+                throw new Exception("用户与用户并发");
+            }
+            db.close();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            db.rollBack();
+            db.close();
+            return false;
+        }
+        return true;
     }
 }

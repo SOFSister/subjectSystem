@@ -98,7 +98,17 @@ public class Course {
     }
 
     private int indexId;
-    public Course(int id,String name,String info,String professional,String term,int total,String kind,int pId){
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    private String flag;
+    public Course(int id,String name,String info,String professional,String term,int total,String kind,int pId,String flag){
         this.id=id;
         this.name=name;
         this.info=info;
@@ -107,5 +117,6 @@ public class Course {
         this.total=total;
         this.kind=kind;
         this.pId=pId;
+        this.flag=flag;
     }
 }
