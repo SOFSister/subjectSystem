@@ -1,5 +1,11 @@
 <%@ page import="user.User" %>
-<%@ page import="db.UserDAO" %><%--
+<%@ page import="db.UserDAO" %>
+<%@ page import="course.Course" %>
+<%@ page import="db.CourseDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="course.HaveCourse" %>
+<%@ page import="db.HaveCourseDAO" %>
+<%@ page import="db.SelectedCourseDAO" %><%--
   Created by IntelliJ IDEA.
   User: 87428
   Date: 2021/12/15
@@ -241,6 +247,11 @@
             </div>
         </div>
         <!-- end::container -->
+        <%
+            ArrayList<HaveCourse> courseArrayList=null;
+            if(userID!=null)
+                courseArrayList= HaveCourseDAO.selectAll(userID);
+        %>
         <div class="container">
             <div class="card">
                 <div class="card-body">
@@ -255,34 +266,19 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <%
+                            if (userID!=null)
+                            for(HaveCourse course:courseArrayList){
+                        %>
                         <tr>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>专业选修课</td>
+                            <td><%=course.getId()%></td>
+                            <td><%=course.getName()%></td>
+                            <td><%=course.getProfessional()%></td>
+                            <td><%=course.getTerm()%></td>
+                            <td><%=course.getKind()%></td>
                         </tr>
-                        <tr>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>专业选修课</td>
-                        </tr>
-                        <tr>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>专业选修课</td>
-                        </tr>
-                        <tr>
-                            <td>225071001</td>
-                            <td>网络编程</td>
-                            <td>软件工程</td>
-                            <td>大三秋</td>
-                            <td>专业选修课</td>
-                        </tr>
+                        <%}
+                        %>
                         </tbody>
                         <tfoot>
                         <tr>

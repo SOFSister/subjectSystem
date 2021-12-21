@@ -1,5 +1,7 @@
 package db;
 
+import course.HaveCourse;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -22,5 +24,22 @@ public class HaveCourseDAO {
         ArrayList<Map<String,String>> rs=db.queryForList(sql);
         db.close();
         return rs.size();
+    }
+    public static ArrayList<HaveCourse> selectAll(String userID){
+        DBConnection db=new DBConnection();
+        String sql="select * from have_course where user_id='"+userID+"'";
+        ArrayList<HaveCourse> arrayList=new ArrayList<>();
+        ArrayList<Map<String,String>> rs=db.queryForList(sql);
+        for (Map<String,String>map:rs) {
+            int id=Integer.parseInt(map.get("id"));
+            String name=map.get("name");
+            String professional=map.get("professional");
+            String term=map.get("term");
+            String kind=map.get("kind");
+            HaveCourse haveCourse=new HaveCourse(id,name,professional,term,kind);
+            arrayList.add(haveCourse);
+        }
+        db.close();
+        return arrayList;
     }
 }

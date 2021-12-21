@@ -92,4 +92,13 @@ public class SelectedCourseDAO {
         }
         return true;
     }
+    public static boolean deleteCourse(String userID,int id){
+        DBConnection db=new DBConnection();
+        String sql="delete from selected_course where user_id='"+userID+"' and id="+id;
+        int i=db.update(sql);
+        db.close();
+        if(i>0)
+            return true;
+        return false;
+    }
 }

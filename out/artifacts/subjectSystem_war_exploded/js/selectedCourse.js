@@ -1,4 +1,28 @@
+var userID="";
+function getUserID(){
+    $.ajax({
+        type: "post",
+        url: "UserCourse",
+        async:false,
+        data: {
+            "action":"getUserID",
+        },
+        dataType: "json",
+        success: function (response) {
+            if(response.success){
+                userID=response.userID;
+            }
+            else{
+                toastr.info("请先登录");
+            }
+        },
+        error:function (response){
+            swal("系统错误!", "请重试", "error");
+        }
+    });
+}
 function init(){
+    getUserID();
     $("#logout_btn").click(function (){
         $.ajax({
             type: "post",
@@ -15,6 +39,33 @@ function init(){
             },
             error:function (response){
                 swal("系统错误!", "请重试", "error");
+            }
+        });
+    });
+    $(".del_btn").click(function (){
+        var i = $(this).parent().parent().parent().find("tr").index($(this).parent().parent()[0]);
+        var id=$("#tbody tr:eq("+i+") td:eq(0)").html();
+        //console.log(professional);
+        $.ajax({
+            type: "post",
+            url: "UserCourse",
+            async:false,
+            data: {
+                "action":"delCourse",
+                "id":id,
+                "userID":userID
+            },
+            dataType: "json",
+            success: function (response) {
+                if(response.success){
+                    window.location.reload();
+                }
+                else{
+                    swal("错误!", "请重试","error");
+                }
+            },
+            error:function (response){
+                swal("系统繁忙!", "请重试", "error");
             }
         });
     });

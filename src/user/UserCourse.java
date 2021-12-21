@@ -64,6 +64,9 @@ public class UserCourse extends HttpServlet{
         else if(action.equals("addCourse")){
             addCourse(request,response);
         }
+        else if(action.equals("delCourse")){
+            delCourse(request,response);
+        }
     }
     protected void getUserID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -211,7 +214,7 @@ public class UserCourse extends HttpServlet{
                 flag=false;
             }
             Course course=CourseDAO.selectAimID(id).get(0);
-            if(HaveCourseDAO.selectAim(course.getpId(),userID)==0){
+            if(course.getpId()!=-1&&HaveCourseDAO.selectAim(course.getpId(),userID)==0){
                 JsonObject jsonContainer =new JsonObject();
                 jsonContainer.addProperty("success",false);
                 jsonContainer.addProperty("info",course.getpId());
@@ -220,7 +223,30 @@ public class UserCourse extends HttpServlet{
                 writer.flush();
                 return;
             }
-            if(SelectedCourseDAO.addSelectedCourse(userID,id,flag)){
+            //记录开始时间戳
+            long startTime=System.currentTimeMillis();
+            while(System.currentTimeMillis()-startTime<=1000){
+                if(SelectedCourseDAO.addSelectedCourse(userID,id,flag)){
+                    JsonObject jsonContainer =new JsonObject();
+                    jsonContainer.addProperty("success",true);
+                    PrintWriter writer = response.getWriter();
+                    writer.write(new Gson().toJson(jsonContainer));
+                    writer.flush();
+                    break;
+                }
+            }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    protected void delCourse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            response.setContentType("application/json;charset=utf-8");
+            request.setCharacterEncoding("UTF-8");
+            String userID= request.getParameter("userID");
+            int id=Integer.parseInt(request.getParameter("id"));
+            if(SelectedCourseDAO.deleteCourse(userID,id)){
                 JsonObject jsonContainer =new JsonObject();
                 jsonContainer.addProperty("success",true);
                 PrintWriter writer = response.getWriter();
@@ -232,5 +258,4 @@ public class UserCourse extends HttpServlet{
             ex.printStackTrace();
         }
     }
-
 }
